@@ -9,7 +9,7 @@ const Overview = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
-  background-color: rgba(0, 0, 0, 0.5);
+  border: ${(props) => `1px solid ${props.theme.textColor}`};
   padding: 10px 20px;
   border-radius: 10px;
 `;
@@ -57,7 +57,7 @@ const Loader = styled.div`
   display: block;
 `;
 const Line = styled.div`
-  border-top: 1px solid white;
+  border-top: ${(props) => `1px solid ${props.theme.textColor}`};
   margin: 10px 0;
   opacity: 0.7;
 `;

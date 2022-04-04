@@ -1,7 +1,7 @@
 import { Helmet } from "react-helmet";
 import { useQuery } from "react-query";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faList, faAngleRight } from "@fortawesome/free-solid-svg-icons";
+import { faList, faSun, faMoon } from "@fortawesome/free-solid-svg-icons";
 import {
   Link,
   Route,
@@ -15,6 +15,8 @@ import { fetchCoinInfo, fetchCoinTickers } from "../api";
 import Chart from "./Chart";
 import Price from "./Price";
 import CandleChart from "./CandleChart";
+import { useRecoilValue, useSetRecoilState } from "recoil";
+import { isDarkAtom } from "../atoms";
 
 interface RouteParams {
   coinId: string;
@@ -32,11 +34,13 @@ const Tab = styled.span<{ isActive: boolean }>`
   text-transform: uppercase;
   font-size: 12px;
   font-weight: 400;
-  background-color: rgba(0, 0, 0, 0.5);
   padding: 7px 0px;
+  border: ${(props) =>
+    props.isActive ? "none" : `1px solid ${props.theme.textColor}`};
   border-radius: 10px;
-  color: ${(props) =>
-    props.isActive ? props.theme.accentColor : props.theme.textColor};
+  background-color: ${(props) =>
+    props.isActive ? props.theme.accentColor : props.theme.bgColor};
+  color: ${(props) => (props.isActive ? "white" : props.theme.textColor)};
   a {
     display: block;
   }
@@ -45,7 +49,7 @@ const Tab = styled.span<{ isActive: boolean }>`
 const Overview = styled.div`
   display: flex;
   justify-content: space-between;
-  background-color: rgba(0, 0, 0, 0.5);
+  border: ${(props) => `1px solid ${props.theme.textColor}`};
   padding: 10px 20px;
   border-radius: 10px;
 `;
@@ -168,6 +172,10 @@ function Coin() {
   const chartMatch = useRouteMatch("/:coinId/chart");
   const candlechartMatch = useRouteMatch("/:coinId/candlechart");
 
+  const setDarkAtom = useSetRecoilState(isDarkAtom);
+  const isDark = useRecoilValue(isDarkAtom);
+  const toggleDarkAtom = () => setDarkAtom((prev) => !prev);
+
   const { isLoading: infoLoading, data: infoData } = useQuery<InfoData>(
     ["info", coinId],
     () => fetchCoinInfo(coinId),
@@ -201,7 +209,9 @@ function Coin() {
         <Title>
           {state?.name ? state.name : loading ? "Loading..." : infoData?.name}
         </Title>
-        <Space />
+        <Button onClick={toggleDarkAtom}>
+          <FontAwesomeIcon icon={isDark ? faSun : faMoon} />
+        </Button>
       </Header>
       {loading ? (
         <Loader>Loading...</Loader>

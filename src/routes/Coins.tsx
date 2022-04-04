@@ -4,6 +4,10 @@ import { useEffect, useState } from "react";
 import { useQuery } from "react-query";
 import { fetchCoins } from "../api";
 import { Helmet } from "react-helmet";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faMoon, faSun } from "@fortawesome/free-solid-svg-icons";
+import { useRecoilValue, useSetRecoilState } from "recoil";
+import { isDarkAtom } from "../atoms";
 
 const Container = styled.div`
   padding: 0px 20px;
@@ -18,8 +22,9 @@ const Header = styled.header`
 `;
 const CoinsList = styled.ul``;
 const Coin = styled.li`
-  background-color: white;
-  color: ${(props) => props.theme.bgColor};
+  background-color: ${(props) => props.theme.bgColor};
+  border: ${(props) => `1px solid ${props.theme.textColor}`};
+  color: ${(props) => props.theme.textColor};
   margin-bottom: 10px;
   border-radius: 15px;
   a {
@@ -33,6 +38,19 @@ const Coin = styled.li`
       color: ${(props) => props.theme.accentColor};
     }
   }
+`;
+const Button = styled.div`
+  cursor: pointer;
+  width: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 40px;
+  color: ${(props) => props.theme.accentColor};
+  display: flex;
+  padding: 5px;
+  border-radius: 10px;
+  margin-left: 20px;
 `;
 
 const Title = styled.h1`
@@ -57,13 +75,21 @@ interface ICoin {
   type: string;
 }
 
-function Coins() {
+function Coins({}) {
+  const setDarkAtom = useSetRecoilState(isDarkAtom);
+  const isDark = useRecoilValue(isDarkAtom);
+  const toggleDarkAtom = () => setDarkAtom((prev) => !prev);
   const { isLoading, data } = useQuery<ICoin[]>("allCoins", fetchCoins);
   return (
     <Container>
-      <title>Coins</title>
+      <Helmet>
+        <title>Coins</title>
+      </Helmet>
       <Header>
         <Title>Coins</Title>
+        <Button onClick={toggleDarkAtom}>
+          <FontAwesomeIcon icon={isDark ? faSun : faMoon} />
+        </Button>
       </Header>
       {isLoading ? (
         <Loader>Loading...</Loader>
