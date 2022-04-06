@@ -169,8 +169,8 @@ function Coin() {
   const { coinId } = useParams<RouteParams>();
   const { state } = useLocation<RouteState>();
   const priceMatch = useRouteMatch("/:coinId/price");
-  const chartMatch = useRouteMatch("/:coinId/chart");
-  const candlechartMatch = useRouteMatch("/:coinId/candlechart");
+  const chartMatch = useRouteMatch("/:coinId/nomalchart");
+  const candlechartMatch = useRouteMatch("/:coinId/chart");
 
   const setDarkAtom = useSetRecoilState(isDarkAtom);
   const isDark = useRecoilValue(isDarkAtom);
