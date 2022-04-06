@@ -244,13 +244,13 @@ function Coin() {
           </Overview>
           <Tabs>
             <Tab isActive={chartMatch !== null}>
-              <Link to={`${coinId}/chart`}>Candle Chart</Link>
+              <Link to={`/${coinId}/chart`}>Candle Chart</Link>
             </Tab>
             <Tab isActive={candlechartMatch !== null}>
-              <Link to={`${coinId}/nomalchart`}>Chart</Link>
+              <Link to={`/${coinId}/nomalchart`}>Chart</Link>
             </Tab>
             <Tab isActive={priceMatch !== null}>
-              <Link to={`${coinId}/price`}>Price</Link>
+              <Link to={`/${coinId}/price`}>Price</Link>
             </Tab>
           </Tabs>
 
