@@ -114,7 +114,7 @@ function Price({ coinId }: PriceProps) {
   const { isLoading, data } = useQuery<PriceData>(["tickers", coinId], () =>
     fetchCoinTickers(coinId)
   );
-  const isUp = (data?.quotes.USD.percent_change_24h ?? 0) > 0 ? true : false;
+  const isUp = (data?.quotes?.USD?.percent_change_24h ?? 0) > 0 ? true : false;
   return (
     <Container>
       {isLoading ? (
@@ -127,7 +127,7 @@ function Price({ coinId }: PriceProps) {
                 <span>{isUp ? "▲ " : "▼ "}</span>
                 <span>
                   $
-                  {data?.quotes.USD.price.toLocaleString(undefined, {
+                  {data?.quotes?.USD?.price.toLocaleString(undefined, {
                     minimumFractionDigits: 2,
                     maximumFractionDigits: 2,
                   })}
@@ -135,7 +135,7 @@ function Price({ coinId }: PriceProps) {
               </CurPrice>
               <Percent isUp={isUp}>
                 {isUp ? "▲ " : "▼ "}
-                {data?.quotes.USD.percent_change_24h.toFixed(2)}%
+                {data?.quotes?.USD?.percent_change_24h.toFixed(2)}%
               </Percent>
             </OverviewItem>
             <Line />
@@ -143,7 +143,7 @@ function Price({ coinId }: PriceProps) {
               <span>Market cap :</span>
               <span>
                 $
-                {data?.quotes.USD.market_cap.toLocaleString(undefined, {
+                {data?.quotes?.USD?.market_cap.toLocaleString(undefined, {
                   minimumFractionDigits: 2,
                   maximumFractionDigits: 2,
                 })}
@@ -154,7 +154,7 @@ function Price({ coinId }: PriceProps) {
               <span>All time high :</span>
               <span>
                 $
-                {data?.quotes.USD.ath_price.toLocaleString(undefined, {
+                {data?.quotes?.USD?.ath_price.toLocaleString(undefined, {
                   minimumFractionDigits: 2,
                   maximumFractionDigits: 2,
                 })}
@@ -164,7 +164,7 @@ function Price({ coinId }: PriceProps) {
             <OverviewItem2>
               <span>All time high date :</span>
               <span>
-                {new Date(data?.quotes.USD.ath_date ?? "").toLocaleString()}
+                {new Date(data?.quotes?.USD?.ath_date ?? "").toLocaleString()}
               </span>
             </OverviewItem2>
           </Overview>
