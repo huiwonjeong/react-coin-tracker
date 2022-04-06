@@ -99,7 +99,7 @@ function Coins({}) {
             <Coin key={coin.id}>
               <Link
                 to={{
-                  pathname: `${coin.id}/chart`,
+                  pathname: `/react-coin-tracker/${coin.id}/chart`,
                   state: {
                     name: coin.name,
                   },

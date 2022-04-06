@@ -199,7 +199,7 @@ function Coin() {
       <Header>
         <Link
           to={{
-            pathname: `/`,
+            pathname: `/react-coin-tracker`,
           }}
         >
           <Button>
@@ -244,10 +244,12 @@ function Coin() {
           </Overview>
           <Tabs>
             <Tab isActive={chartMatch !== null}>
-              <Link to={`/${coinId}/chart`}>Candle Chart</Link>
+              <Link to={`/react-coin-tracker/${coinId}/chart`}>
+                Candle Chart
+              </Link>
             </Tab>
             <Tab isActive={candlechartMatch !== null}>
-              <Link to={`/${coinId}/nomalchart`}>Chart</Link>
+              <Link to={`/react-coin-tracker/${coinId}/nomalchart`}>Chart</Link>
             </Tab>
             <Tab isActive={priceMatch !== null}>
               <Link to={`/${coinId}/price`}>Price</Link>
@@ -255,13 +257,13 @@ function Coin() {
           </Tabs>
 
           <Switch>
-            <Route path={`/:coinId/price`}>
+            <Route path={`/react-coin-tracker/:coinId/price`}>
               <Price coinId={coinId} />
             </Route>
-            <Route path={`/:coinId/chart`}>
+            <Route path={`/react-coin-tracker/:coinId/chart`}>
               <CandleChart coinId={coinId} />
             </Route>
-            <Route path={`/:coinId/nomalchart`}>
+            <Route path={`/react-coin-tracker/:coinId/nomalchart`}>
               <Chart coinId={coinId} />
             </Route>
           </Switch>
