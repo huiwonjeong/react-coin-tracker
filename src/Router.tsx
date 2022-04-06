@@ -11,7 +11,7 @@ function Router({}: IRouterProps) {
         <Route path="/">
           <Coins />
         </Route>
-        <Route path="/:coinId">
+        <Route path=":coinId">
           <Coin />
         </Route>
       </Switch>
